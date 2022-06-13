@@ -1,0 +1,31 @@
+table {
+    font-size: 70%;
+}
+
+.tabla1, .tabla2 {
+    margin-bottom: 5%;
+}
+
+.btn {
+    font-size: 80%;
+}
+
+.tabla2 .card {
+    padding: 1em;
+}
+
+.matricula {
+    margin-bottom: 4%;
+}
+
+.matricula .card {
+    padding: 1em;
+}
+
+.input {
+    width: 40%;
+}
+
+.btnHecho {
+    margin-bottom: 1%;
+}

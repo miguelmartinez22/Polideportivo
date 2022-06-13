@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../static/css/index.css" th:href="@{/css/index.css}">
+
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f33f57c2f7.js" crossorigin="anonymous"></script>
+
+    <!--Bootstrap Icons-->
+    <link rel="stylesheet" th:href="@{../static/css/bootstrap-icons.css}" href="../static/css/bootstrap-icons.css">
+
+    <title>Polideportivo Martínez</title>
+</head>
+<body  onload="myFunction()" style="margin:0;">
+
+<div id="loader"></div>
+
+<div class="container-fluid animate-bottom" style="display:none;" id="myDiv">
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{/}" href="index.html"><img src="../static/img/logo2.png" th:src="@{img/logo2.png}"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="app/registro.html" th:href="@{/registro}"><i class="fas fa-sign-in-alt"></i>&nbsp; REGISTRO</a>
+                        </li>
+                        &nbsp;&nbsp;
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="app/deportes.html" th:href="@{/deportes}"><i class="fas fa-basketball-ball"></i> &nbsp;DEPORTES Y ACTIVIDADES</a>
+                        </li>
+                        &nbsp;&nbsp;
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="app/quienesSomos.html" th:href="@{/quienesSomos}"><i class="fas fa-user-friends"></i> &nbsp;¿QUIÉNES SOMOS?</a>
+                        </li>
+                    </ul>
+                    &nbsp;&nbsp;
+                    <h3><a href="app/login.html" th:href="@{/login}"><i class="far fa-user"></i></a></h3>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="block w_one stepscroll"></div>
+        <div class="card" id="carroussel">
+            <div class="card-body">
+
+              <!-- Slides with indicators -->
+              <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-indicators">
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                </div>
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="../static/img/carroussel/Futbol.jpg" th:src="@{/img/carroussel/Futbol.jpg}" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="../static/img/carroussel/FSala.jpg" th:src="@{/img/carroussel/FSala.png}" class="d-block w-100" alt="...">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="../static/img/carroussel/Basket.jpg" th:src="@{/img/carroussel/Basket.jpg}" class="d-block w-100" alt="...">
+                  </div>
+                </div>
+
+                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+
+              </div>
+
+            </div>
+          </div>
+        <br>
+        <div class="card">
+            <h5 class="card-title" id="card-title">DEPORTES</h5>
+            <div class="row">
+                <div class="col-3 col-lg-3 col-md-3 col-sm-3" th:each="deporte : ${deportes}" id="fotoCards">
+                    <a href="#" th:href="@{/deporte/detalles/{id}(id=${deporte.id})}">
+                        <div class="card"  id="contenedorCards">
+                            <img src="../static/img/deportes.jpg" th:src="${#strings.isEmpty(deporte.imagen)} ? '/img/deportes.jpg' : ${deporte.imagen}" class="card-img-top" alt="...">
+                            <div class="card-img-overlay">
+                                <h5 class="card-title">
+                                    <span class="" th:text="${deporte.nombre}">Nombre del deporte</span><i class="ri-money-euro-circle-line"></i>
+                                </h5>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="w-100 py-4 flex-shrink-0">
+        <div class="container py-4">
+            <div class="row gy-4 gx-5">
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="h1"><i class="fas fa-exclamation-triangle"></i></h5>
+                    <p class="small text-muted mb-0">&copy; Copyrights. All rights reserved. <a class="text-primary" href="#">www.polideportivomartinez.com</a></p>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="h2 mb-3"><i class="fas fa-users"></i> REDES SOCIALES</h5>
+                    <h2>
+                        <a href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="https://instagram.com/"><i class="fab fa-instagram"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="https://facebook.com/"><i class="fab fa-facebook"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="https://tiktok.com/"><i class="fab fa-tiktok"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="https://youtube.com/"><i class="fab fa-youtube"></i></a>
+                    </h2>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h3 class=""><i class="fas fa-info-circle"></i> CONTÁCTANOS</h3>
+                    <br>
+                    <p class="small text-muted"><i class="fa fa-phone"></i>&nbsp; 91 499 55 88</p>
+                    <p class="small text-muted"><i class="fas fa-envelope"></i>&nbsp; polideportivomartinez@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+<script type="text/javascript" src="../static/js/index.js" th:src="@{/js/index.js}"></script>
+
+</body>
+
+<script type="text/javascript" src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</html>

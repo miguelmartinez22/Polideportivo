@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../static/css/index.css" th:href="@{/css/index.css}">
+
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f33f57c2f7.js" crossorigin="anonymous"></script>
+
+    <!--Bootstrap Icons-->
+    <link rel="stylesheet" th:href="@{css/bootstrap-icons.css}" href="../static/css/bootstrap-icons.css">
+
+    <title>Polideportivo Martínez</title>
+</head>
+<body>
+
+<div class="container-fluid">
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{/}" href="../index.html"><img src="../../static/img/logo2.png" th:src="@{img/logo2.png}"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="registro.html" th:href="@{/registro}"><i class="fas fa-sign-in-alt"></i>&nbsp; REGISTRO</a>
+                        </li>
+                        &nbsp;&nbsp;
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="deportes.html" th:href="@{/deportes}"><i class="fas fa-basketball-ball"></i> &nbsp;DEPORTES Y ACTIVIDADES</a>
+                        </li>
+                        &nbsp;&nbsp;
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="quienesSomos.html" th:href="@{/quienesSomos}"><i class="fas fa-user-friends"></i> &nbsp;¿QUIÉNES SOMOS?</a>
+                        </li>
+                    </ul>
+                    &nbsp;&nbsp;
+                    <h3><a href="login.html" th:href="@{/login}"><i class="far fa-user"></i></a></h3>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+<div class="row">
+    <div class="col-6 col-lg-6 col-md-6 col-sm-6 formulario">
+        <div class="col-10 col-lg-10 col-md-10 col-sm-10 caja">
+            <h3>¡REGÍSTRATE!</h3>
+            <br>
+            <form method="post" enctype="multipart/form-data" action="#"
+                  th:action="@{/registro/submit}" th:object="${cliente}">
+
+                <!--USUARIO Y CONTRASEÑA-->
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="form-outline">
+                            <input type="text" id="form6Example9" class="form-control" required th:field="*{usuario}"/>
+                            <label class="form-label" for="form6Example9">Nombre de usuario</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline">
+                            <input type="password" id="form6Example10" class="form-control" required th:field="*{contrasena}"/>
+                            <label class="form-label" for="form6Example10">Contraseña</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text input -->
+                <div class="form-outline mb-4">
+                    <input type="text" id="form6Example0" class="form-control" required th:field="*{dni}"/>
+                    <label class="form-label" for="form6Example0">DNI</label>
+                </div>
+
+                <!-- Text input -->
+                <div class="form-outline mb-4">
+                    <input type="text" id="form6Example1" class="form-control" required th:field="*{nombre}"/>
+                    <label class="form-label" for="form6Example1">Nombre</label>
+                </div>
+
+                <!-- 2 column grid layout with text inputs for the first and last names -->
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="form-outline">
+                            <input type="text" id="form6Example2" class="form-control" required th:field="*{apellido1}"/>
+                            <label class="form-label" for="form6Example2">Primer apellido</label>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-outline">
+                            <input type="text" id="form6Example3" class="form-control" th:field="*{apellido2}"/>
+                            <label class="form-label" for="form6Example3">Segundo apellido</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Text input -->
+                <div class="form-outline mb-4">
+                    <input type="text" id="form6Example4" class="form-control" required th:field="*{telefono}"/>
+                    <label class="form-label" for="form6Example4">Teléfono</label>
+                </div>
+
+                <!-- Text input -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="provincia"></label>
+
+                    <select required name="provincia" id="provincia" class="form-control" th:field="*{localidad}">
+                        <option value="">Elige Provincia</option>
+                        <option value="Álava/Araba">Álava/Araba</option>
+                        <option value="Albacete">Albacete</option>
+                        <option value="Alicante">Alicante</option>
+                        <option value="Almería">Almería</option>
+                        <option value="Asturias">Asturias</option>
+                        <option value="Ávila">Ávila</option>
+                        <option value="Badajoz">Badajoz</option>
+                        <option value="Baleares">Baleares</option>
+                        <option value="Barcelona">Barcelona</option>
+                        <option value="Burgos">Burgos</option>
+                        <option value="Cáceres">Cáceres</option>
+                        <option value="Cádiz">Cádiz</option>
+                        <option value="Cantabria">Cantabria</option>
+                        <option value="Castellón">Castellón</option>
+                        <option value="Ceuta">Ceuta</option>
+                        <option value="Ciudad Real">Ciudad Real</option>
+                        <option value="Córdoba">Córdoba</option>
+                        <option value="Cuenca">Cuenca</option>
+                        <option value="Gerona/Girona">Gerona/Girona</option>
+                        <option value="Granada">Granada</option>
+                        <option value="Guadalajara">Guadalajara</option>
+                        <option value="Guipúzcoa/Gipuzkoa">Guipúzcoa/Gipuzkoa</option>
+                        <option value="Huelva">Huelva</option>
+                        <option value="Huesca">Huesca</option>
+                        <option value="Jaén">Jaén</option>
+                        <option value="La Coruña/A Coruña">La Coruña/A Coruña</option>
+                        <option value="La Rioja">La Rioja</option>
+                        <option value="Las Palmas">Las Palmas</option>
+                        <option value="León">León</option>
+                        <option value="Lérida/Lleida">Lérida/Lleida</option>
+                        <option value="Lugo">Lugo</option>
+                        <option value="Madrid">Madrid</option>
+                        <option value="Málaga">Málaga</option>
+                        <option value="Melilla">Melilla</option>
+                        <option value="Murcia">Murcia</option>
+                        <option value="Navarra">Navarra</option>
+                        <option value="Orense/Ourense">Orense/Ourense</option>
+                        <option value="Palencia">Palencia</option>
+                        <option value="Pontevedra">Pontevedra</option>
+                        <option value="Salamanca">Salamanca</option>
+                        <option value="Segovia">Segovia</option>
+                        <option value="Sevilla">Sevilla</option>
+                        <option value="Soria">Soria</option>
+                        <option value="Tarragona">Tarragona</option>
+                        <option value="Tenerife">Tenerife</option>
+                        <option value="Teruel">Teruel</option>
+                        <option value="Toledo">Toledo</option>
+                        <option value="Valencia">Valencia</option>
+                        <option value="Valladolid">Valladolid</option>
+                        <option value="Vizcaya/Bizkaia">Vizcaya/Bizkaia</option>
+                        <option value="Zamora">Zamora</option>
+                        <option value="Zaragoza">Zaragoza</option>
+                    </select>
+                </div>
+
+                <br>
+
+                <!-- Text input -->
+                <div class="form-outline mb-4">
+                    <input type="text" id="form6Example5" class="form-control" required th:field="*{domicilio}"/>
+                    <label class="form-label" for="form6Example5">Domicilio</label>
+                </div>
+
+                <br>
+
+                <!-- Text input -->
+                <div class="form-outline mb-4">
+                    <input type="text" id="form6Example6" class="form-control" required th:field="*{codigoPostal}"/>
+                    <label class="form-label" for="form6Example6">Codigo Postal</label>
+                </div>
+
+                <br>
+
+                <div class="form-outline mb-4">
+                    <input type="date" id="form6Example7" class="form-control" required th:field="*{tipo}" />
+                    <label class="form-label" for="form6Example7">Fecha Nacimiento</label>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block mb-4">¡Hecho!</button>
+            </form>
+        </div>
+    </div>
+    <div class="col-6 col-lg-6 col-md-6 col-sm-6 datos">
+        <div class="caja">
+            <h3>¿YA TIENES ENTRADA?</h3>
+            <br>
+            <h4><a href="login.html" th:href="@{/login}">Consulta tus datos aquí.</a></h4>
+        </div>
+    </div>
+</div></main>
+    <footer class="w-100 py-4 flex-shrink-0">
+        <div class="container py-4">
+            <div class="row gy-4 gx-5">
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="h1 "><i class="fas fa-exclamation-triangle"></i></h5>
+                    <p class="small text-muted mb-0">&copy; Copyrights. All rights reserved. <a class="text-primary" href="#">www.polideportivomartinez.com</a></p>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="h2  mb-3"><i class="fas fa-users"></i> REDES SOCIALES</h5>
+                    <h2>
+                        <a href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="https://instagram.com/"><i class="fab fa-instagram"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="https://facebook.com/"><i class="fab fa-facebook"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="https://tiktok.com/"><i class="fab fa-tiktok"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="https://youtube.com/"><i class="fab fa-youtube"></i></a>
+                    </h2>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h3 class=""><i class="fas fa-info-circle"></i> CONTÁCTANOS</h3>
+                    <br>
+                    <p class="small text-muted"><i class="fa fa-phone"></i>&nbsp; 91 499 55 88</p>
+                    <p class="small text-muted"><i class="fas fa-envelope"></i>&nbsp; polideportivomartinez@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+</body>
+
+<script type="text/javascript" src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</html>

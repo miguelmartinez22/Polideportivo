@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="../../static/css/bootstrap.css" th:href="@{/css/bootstrap.css}">
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../static/css/admin.css" th:href="@{/css/admin.css}">
+
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f33f57c2f7.js" crossorigin="anonymous"></script>
+
+    <!-- Vendor CSS Files -->
+    <link href="../../static/assets/vendor/bootstrap-icons/bootstrap-icons.css" th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+    <link href="../../static/assets/vendor/boxicons/css/boxicons.min.css" th:href="@{/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+
+    <link href="../../static/assets/css/style.css" th:href="@{/assets/css/style.css}" rel="stylesheet">
+
+    <title>Administrar polideportivo</title>
+</head>
+
+<body onload="myFunction()" style="margin:0;">
+
+    <div id="loader"></div>
+
+    <div class="container-fluid animate-bottom" style="display:none;" id="myDiv">
+        <!-- ======= Header ======= -->
+        <header id="header" class="header fixed-top d-flex align-items-center bg-light">
+
+            <div class="d-flex align-items-center justify-content-between">
+                <a class="logo d-flex align-items-center">
+                    <span class="d-none d-lg-block "><i class="fas fa-user-cog"></i>&nbsp; CONSOLA DE ADMINISTRADOR</span>
+                </a>
+                <i class="toggle-sidebar-btn">...</i>
+            </div><!-- End Logo -->
+
+            <nav class="header-nav ms-auto">
+                <!--Icono cartera-->
+                <i class="fas fa-wallet"></i>
+                <a th:text="${cartera}"></a>
+                <h6><strong>Dinero Matrículas</strong></h6>
+            </nav><!-- End Icons Navigation -->
+
+        </header><!-- End Header -->
+
+        <!-- ======= Sidebar ======= -->
+        <aside id="sidebar" class="sidebar bg-secondary">
+
+            <ul class="sidebar-nav" id="sidebar-nav">
+
+                <li class="nav-item">
+                    <a class="nav-link " href="../index.html" th:href="@{/}">
+                        <i class="fas fa-eye"></i>
+                        <span>&nbsp; Vista cliente</span>
+                    </a>
+                </li><!-- End Dashboard Nav -->
+
+                <br>
+
+                <li class="nav-item">
+                    <a class="nav-link " href="#deporte" th:href="@{#deporte}">
+                        <i class="fab fa-wpforms"></i>
+                        <span>&nbsp; Añadir deporte</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link " href="#pista" th:href="@{#pista}">
+                        <i class="fab fa-wpforms"></i>
+                        <span>&nbsp; Añadir pista</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link " href="#material" th:href="@{#material}">
+                        <i class="fab fa-wpforms"></i>
+                        <span>&nbsp; Añadir material</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link " href="#entrenador" th:href="@{#entrenador}">
+                        <i class="fab fa-wpforms"></i>
+                        <span>&nbsp; Añadir entrenador</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link " href="#staff" th:href="@{#staff}">
+                        <i class="fab fa-wpforms"></i>
+                        <span>&nbsp; Añadir staff</span>
+                    </a>
+                </li>
+
+                <br>
+
+                <li class="nav-item">
+                    <a class="nav-link " href="#listadoDeportes" th:href="@{#listadoDeportes}">
+                        <i class="fas fa-list"></i>
+                        <span>&nbsp; Otras opciones</span>
+                    </a>
+                </li>
+
+            </ul>
+
+        </aside><!-- End Sidebar-->
+
+        <main id="main" class="main">
+
+            <div class="pagetitle">
+                <h1>Administrar polideportivo</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    </ol>
+                </nav>
+            </div><!-- End Page Title -->
+
+            <br>
+            <a name="deporte"></a>
+            <div class="card">
+
+                <div class="card-body pb-0">
+                    <h5 class="card-title">AÑADIR DEPORTE</h5>
+                    <h6><i class="fas fa-exclamation-circle"></i><strong> Nota. </strong>Ten en cuenta que antes de añadir un deporte,
+                        debes haber creado su pista y entrenador</h6>
+
+                    <form method="post" enctype="multipart/form-data" action="#" th:action="@{/newDeporte/submit}"
+                        th:object="${deporte}">
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="nombreDeporte" class="form-control" maxlength="9" required th:field="*{nombre}" />
+                            <label class="form-label" for="nombreDeporte">Nombre</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="number" id="precioDeporte" class="form-control" required
+                                th:field="*{precio}" />
+                            <label class="form-label" for="precioDeporte">Precio</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <select id="horarioDeporte" class="form-control" required th:field="*{horario}" >
+                                <option value="9:00-11:00">9:00-11:00</option>
+                                <option value="12:00-14:00">12:00-14:00</option>
+                                <option value="17:00-19:00">17:00-19:00</option>
+                                <option value="19:00-21:00">19:00-21:00</option>
+                            </select>
+                            <label class="form-label" for="horarioDeporte">Horario</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="imagenDeporte" class="form-control"
+                                   th:field="*{imagen}" />
+                            <label class="form-label" for="imagenDeporte">Imagen</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="numJugadoresDeporte" class="form-control" required
+                                th:field="*{numJugadores}" />
+                            <label class="form-label" for="numJugadoresDeporte">Número de Jugadores</label>
+                        </div>
+
+                        <!--Mandar desde el controlador una lista de pista-->
+                        <div class="form-outline mb-4">
+                            <select required name="pistaDeporte" id="pistaDeporte" class="form-control"
+                                    th:field="*{pista.id}">
+                                <option th:each="pista : ${pists}" th:value="${pista.id}"
+                                        th:text="${pista.localizacion}"></option>
+                            </select>
+                            <label class="form-label" for="pistaDeporte">Pista</label>
+                        </div>
+
+                        <!--Mandar desde el controlador una lista de entrenadores-->
+                        <div class="form-outline mb-4">
+                            <select required name="entrenadorDeporte" id="entrenadorDeporte" class="form-control"
+                                    th:field="*{entrenador.id}">
+                                <option th:each="entrenador : ${entrenadors}" th:value="${entrenador.id}"
+                                        th:text="${entrenador.nombre}"></option>
+                            </select>
+                            <label class="form-label" for="entrenadorDeporte">Entrendor</label>
+                        </div>
+
+                        <button class="btn btn-outline-light px-3 bg-primary btnHecho" type="submit">Hecho</button>
+                    </form>
+                </div>
+            </div>
+
+            <a name="pista"></a>
+            <div class="card">
+
+                <div class="card-body pb-0">
+                    <h5 class="card-title">AÑADIR PISTA</h5>
+
+                    <form method="post" enctype="multipart/form-data" action="#" th:action="@{/newPista/submit}"
+                        th:object="${pista}">
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="localizacionPista" class="form-control" required th:field="*{localizacion}" />
+                            <label class="form-label" for="localizacionPista">Localizacion</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="superficie" class="form-control" required th:field="*{superficie}" />
+                            <label class="form-label" for="superficie">Superficie</label>
+                        </div>
+
+                        <button class="btn btn-outline-light px-3 bg-primary btnHecho" type="submit">Hecho</button>
+                    </form>
+                </div>
+            </div>
+
+            <a name="Material"></a>
+            <div class="card">
+
+                <div class="card-body pb-0">
+                    <h5 class="card-title">AÑADIR MATERIAL</h5>
+
+                    <form method="post" enctype="multipart/form-data" action="#" th:action="@{/newMaterial/submit}"
+                        th:object="${material}">
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="nombreMaterial" class="form-control" required th:field="*{nombre}" />
+                            <label class="form-label" for="nombreMaterial">Nombre</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="descripcionMaterial" class="form-control" required th:field="*{descripcion}" />
+                            <label class="form-label" for="descripcionMaterial">Descripción</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="cantidadMaterial" class="form-control" required th:field="*{cantidad}" />
+                            <label class="form-label" for="cantidadMaterial">Cantidad</label>
+                        </div>
+
+                        <button class="btn btn-outline-light px-3 bg-primary btnHecho" type="submit">Hecho</button>
+
+                    </form>
+                </div>
+            </div>
+
+            <a name="entrenador"></a>
+            <div class="card">
+
+                <div class="card-body pb-0">
+                    <h5 class="card-title">AÑADIR ENTRENADOR</h5>
+
+                    <form method="post" enctype="multipart/form-data" action="#" th:action="@{/newEntrenador/submit}"
+                        th:object="${entrenador}">
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="dniEntrenador" class="form-control" required th:field="*{dni}" />
+                            <label class="form-label" for="dniEntrenador">DNI</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="nombreEntrenador" class="form-control" required th:field="*{nombre}" />
+                            <label class="form-label" for="nombreEntrenador">Nombre</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="apellidoEntrenador" class="form-control" required
+                                th:field="*{apellido1}" />
+                            <label class="form-label" for="apellidoEntrenador">Primer Apellido</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="apellido2Entrenador" class="form-control" required
+                                   th:field="*{apellido2}" />
+                            <label class="form-label" for="apellido2Entrenador">Segundo Apellido</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="number" id="sueldoEntrenador" class="form-control" required
+                                   th:field="*{sueldo}" />
+                            <label class="form-label" for="sueldoEntrenador">Sueldo</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="date" id="fechaNacEntr" class="form-control" required th:name="fechaNacEntr"/>
+                            <label class="form-label" for="fechaNacEntr">Fecha Nacimiento</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="especialidadEntrenador" class="form-control" required
+                                   th:field="*{especialidad}" />
+                            <label class="form-label" for="especialidadEntrenador">Especialidad</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="equipoEntrenador" class="form-control" required
+                                   th:field="*{equipo}" />
+                            <label class="form-label" for="equipoEntrenador">Equipo</label>
+                        </div>
+
+                        <button class="btn btn-outline-light px-3 bg-primary btnHecho" type="submit">Hecho</button>
+
+                    </form>
+                </div>
+            </div>
+
+            <a name="staff"></a>
+            <div class="card">
+
+                <div class="card-body pb-0">
+                    <h5 class="card-title">AÑADIR STAFF</h5>
+
+                    <form method="post" enctype="multipart/form-data" action="#" th:action="@{/newStaff/submit}"
+                          th:object="${staff}">
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="dniStaff" class="form-control" required th:field="*{dni}" />
+                            <label class="form-label" for="dniStaff">DNI</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="nombreStaff" class="form-control" required th:field="*{nombre}" />
+                            <label class="form-label" for="nombreStaff">Nombre</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="apellidoStaff" class="form-control" required
+                                   th:field="*{apellido1}" />
+                            <label class="form-label" for="apellidoStaff">Primer Apellido</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="apellido2Staff" class="form-control" required
+                                   th:field="*{apellido2}" />
+                            <label class="form-label" for="apellido2Staff">Segundo Apellido</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="number" id="sueldoStaff" class="form-control" required
+                                   th:field="*{sueldo}" />
+                            <label class="form-label" for="sueldoEntrenador">Sueldo</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="date" id="fechaNacStaff" class="form-control" required th:name="fechaNacStaff"/>
+                            <label class="form-label" for="fechaNacStaff">Fecha Nacimiento</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="departamentoStaff" class="form-control" required
+                                   th:field="*{departamento}" />
+                            <label class="form-label" for="departamentoStaff">Departamento</label>
+                        </div>
+
+                        <div class="form-outline mb-4">
+                            <input type="text" id="puestoStaff" class="form-control" required
+                                   th:field="*{puesto}" />
+                            <label class="form-label" for="puestoStaff">Puesto</label>
+                        </div>
+
+                        <button class="btn btn-outline-light px-3 bg-primary btnHecho" type="submit">Hecho</button>
+
+                    </form>
+                </div>
+            </div>
+
+            <a name="listadoDeportes"></a>
+            <div class="card">
+
+                <div class="card-body pb-0">
+                    <h5 class="card-title">Listado Deportes</h5>
+
+                    <table class="table table-dark">
+                        <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Precio</th>
+                            <th scope="col">Horario</th>
+                            <th scope="col">Número Jugadores</th>
+                            <th scope="col">Cambiar Horario</th>
+                            <th scope="col">Añadir Material</th>
+                            <th scope="col">Borrar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="deport : ${deportes}">
+                            <th scope="row" th:text="${deport.id}">id</th>
+                            <td th:text="${deport.nombre}">nombre</td>
+                            <td th:text="${deport.precio}">precio</td>
+                            <td th:text="${deport.horario}">horario</td>
+                            <td th:text="${deport.numJugadores}">numJugadores</td>
+                            <td>
+                                <form action="#" th:action="@{/listadoDeporte/submit}"method="post">
+                                    <input type="hidden" th:value="${deport.id}" th:name="deportId"/>
+                                    <select id="deportHorario" class="form-control" required th:name="deportHorario">
+                                        <option value="9:00-11:00">9:00-11:00</option>
+                                        <option value="12:00-14:00">12:00-14:00</option>
+                                        <option value="17:00-19:00">17:00-19:00</option>
+                                        <option value="19:00-21:00">19:00-21:00</option>
+                                    </select>
+                                    <button class="btn btn-outline-light px-3 bg-primary btnModificar" type="submit">Cambiar Horario</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="#" th:action="@{/listadoDeporteMaterial/submit}"method="post">
+                                    <input type="hidden" th:value="${deport.id}" th:name="deportId"/>
+                                    <select required name="materialDeporte" id="materialDeporte" class="form-control" th:name="materDeporte">
+                                        <option th:each="mater : ${materiales}" th:value="${mater.nombre}" th:text="${mater.nombre}"></option>
+                                    </select>
+                                    <button class="btn btn-outline-light px-3 bg-primary btnModificar" type="submit">Añadir Material</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="#" th:action="@{/eliminarDeporte/submit}"method="post">
+                                    <input type="hidden" th:value="${deport.id}" th:name="deportId"/>
+                                    <button class="btn btn-outline-light px-3 bg-primary" type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <a name="listadoEmpleado"></a>
+            <div class="card">
+
+                <div class="card-body pb-0">
+                    <h5 class="card-title">Listado Empleados</h5>
+
+                    <table class="table table-dark">
+                        <thead>
+                        <tr>
+                            <th scope="col">id</th>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Primer Apellido</th>
+                            <th scope="col">Segundo Apellido</th>
+                            <th scope="col">Sueldo</th>
+                            <th scope="col">F. Nacimiento</th>
+                            <th scope="col">F. Incorporación</th>
+                            <th scope="col">Reducir Sueldo (%)</th>
+                            <th scope="col">Aumentar Sueldo (%)</th>
+                            <th scope="col">Dar de baja</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="emplead : ${empleados}">
+                            <th scope="row" th:text="${emplead.id}">id</th>
+                            <td th:text="${emplead.dni}">dni</td>
+                            <td th:text="${emplead.nombre}">nombre</td>
+                            <td th:text="${emplead.apellido1}">apellido1</td>
+                            <td th:text="${emplead.apellido2}">apellido2</td>
+                            <td th:text="${emplead.sueldo}">sueldo</td>
+                            <td th:text="${emplead.fechaNacimiento}">fechaNacimiento</td>
+                            <td th:text="${emplead.fechaIncorporacion}">fechaIncorporacion</td>
+                            <td>
+                                <form action="#" th:action="@{/listadoEmpleadoReducir/submit}"method="post">
+                                    <input type="hidden" th:value="${emplead.dni}" th:name="empleadDni"/>
+                                    <input id="sueldo" type="text" th:name="empleadSueldo">
+                                    <button class="btn btn-outline-light px-3 bg-primary btnSueldo" type="submit">Reducir sueldo</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="#" th:action="@{/listadoEmpleadoAumentar/submit}"method="post">
+                                    <input type="hidden" th:value="${emplead.dni}" th:name="empleadDni"/>
+                                    <input id="sueldo" type="text" th:name="empleadSueldo">
+                                    <button class="btn btn-outline-light px-3 bg-primary btnSueldo" type="submit">Aumentar sueldo</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="#" th:action="@{/eliminarEmpleado/submit}"method="post">
+                                    <input type="hidden" th:value="${emplead.dni}" th:name="empleadDni"/>
+                                    <button class="btn btn-outline-light px-3 bg-primary" type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <a name="listadoEntrenador"></a>
+            <div class="card">
+
+                <div class="card-body pb-0">
+                    <h5 class="card-title">Listado Entrenador</h5>
+
+                    <table class="table table-dark">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Especialidad</th>
+                            <th scope="col">Equipo</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="entren : ${entrenadores}">
+                            <th scope="row" th:text="${entren.nombre}">nombre</th>
+                            <td th:text="${entren.especialidad}">especialidad</td>
+                            <td th:text="${entren.equipo}">equipo</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <a name="listadoStaff"></a>
+            <div class="card">
+
+                <div class="card-body pb-0">
+                    <h5 class="card-title">Listado Staff</h5>
+
+                    <table class="table table-dark">
+                        <thead>
+                        <tr>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Departamento</th>
+                            <th scope="col">Puesto</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="staf : ${staffs}">
+                            <th scope="row" th:text="${staf.nombre}">nombre</th>
+                            <td th:text="${staf.departamento}">departamento</td>
+                            <td th:text="${staf.puesto}">puesto</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <a name="listadoPista"></a>
+            <div class="card">
+
+                <div class="card-body pb-0">
+                    <h5 class="card-title">Listado Pista</h5>
+
+                    <table class="table table-dark">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Localización</th>
+                            <th scope="col">Superficie</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="pist : ${pistas}">
+                            <th scope="row" th:text="${pist.id}">id</th>
+                            <td th:text="${pist.localizacion}">localizacion</td>
+                            <td th:text="${pist.superficie}">superficie</td>
+                            <td>
+                                <form action="#" th:action="@{/eliminarPista/submit}"method="post">
+                                    <input type="hidden" th:value="${pist.id}" th:name="pistId"/>
+                                    <button class="btn btn-outline-light px-3 bg-primary" type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <a name="listadoMaterial"></a>
+            <div class="card">
+
+                <div class="card-body pb-0">
+                    <h5 class="card-title">Listado Material</h5>
+
+                    <table class="table table-dark">
+                        <thead>
+                        <tr>
+                            <th scope="col">ID</th>
+                            <th scope="col">Nombre</th>
+                            <th scope="col">Descripcion</th>
+                            <th scope="col">Cantidad</th>
+                            <th scope="col">Deporte</th>
+                            <th scope="col">Eliminar</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="materi : ${materiales}">
+                            <th scope="row" th:text="${materi.id}">id</th>
+                            <td th:text="${materi.nombre}">nombre</td>
+                            <td th:text="${materi.descripcion}">descripcion</td>
+                            <td th:text="${materi.cantidad}">cantidad</td>
+                            <td>
+                                <span th:if="${materi.deporte == null}">Sin deporte asociado</span>
+                                <span th:unless="${materi.deporte == null}" th:text="${materi.deporte.nombre}">deporte</span>
+                            </td>
+                            <td>
+                                <form action="#" th:action="@{/eliminarMaterial/submit}"method="post">
+                                    <input type="hidden" th:value="${materi.id}" th:name="materiId"/>
+                                    <button class="btn btn-outline-light px-3 bg-primary" type="submit">Eliminar</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+
+        <footer class="w-100 py-4 flex-shrink-0 bg-light">
+            <div class="container py-4">
+                <div class="row gy-4 gx-5">
+                    <div class="col-lg-4 col-md-4">
+                        <h5 class="h1"><i class="fas fa-exclamation-triangle"></i></h5>
+                        <p class="small text-muted mb-0">&copy; Copyrights. All rights reserved. <a class="text-primary" href="#">www.polideportivomartinez.com</a></p>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <h5 class="h2 mb-3"><i class="fas fa-users"></i> REDES SOCIALES</h5>
+                        <h2>
+                            <a href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
+                            &nbsp;&nbsp;
+                            <a href="https://instagram.com/"><i class="fab fa-instagram"></i></a>
+                            &nbsp;&nbsp;
+                            <a href="https://facebook.com/"><i class="fab fa-facebook"></i></a>
+                            &nbsp;&nbsp;
+                            <a href="https://tiktok.com/"><i class="fab fa-tiktok"></i></a>
+                            &nbsp;&nbsp;
+                            <a href="https://youtube.com/"><i class="fab fa-youtube"></i></a>
+                        </h2>
+                    </div>
+                    <div class="col-lg-4 col-md-4">
+                        <h3 class=""><i class="fas fa-info-circle"></i> CONTÁCTANOS</h3>
+                        <br>
+                        <p class="small text-muted"><i class="fa fa-phone"></i>&nbsp; 91 499 55 88</p>
+                        <p class="small text-muted"><i class="fas fa-envelope"></i>&nbsp; polideportivomartinez@gmail.com</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <script type="text/javascript" src="../../static/js/index.js" th:src="@{/js/index.js}"></script>
+
+</body>
+
+    <!-- Vendor JS Files -->
+    <script type="text/javascript" src="../../static/assets/js/main.js" th:src="@{/assets/js/main.js}"></script>
+
+    <script type="text/javascript" src="../../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+</html>

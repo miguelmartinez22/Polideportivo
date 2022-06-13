@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="../static/css/bootstrap.css">
+    <link rel="stylesheet" href="../../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" href="../../static/css/index.css" th:href="@{/css/index.css}">
+    <link rel="stylesheet" href="../../static/css/deportes.css" th:href="@{/css/deportes.css}">
+
+    <!-- Font Awesome icons (free version)-->
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/f33f57c2f7.js" crossorigin="anonymous"></script>
+
+    <!--Bootstrap Icons-->
+    <link rel="stylesheet" th:href="@{../static/css/bootstrap-icons.css}" href="../static/css/bootstrap-icons.css">
+
+    <title>Polideportivo Martínez</title>
+</head>
+<body>
+
+<div class="container-fluid">
+    <header>
+        <nav class="navbar navbar-expand-lg fixed-top">
+            <div class="container-fluid">
+                <a class="navbar-brand" th:href="@{/}" href="index.html"><img src="../static/img/logo2.png" th:src="@{img/logo2.png}"></a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="app/registro.html" th:href="@{/registro}"><i class="fas fa-sign-in-alt"></i>&nbsp; REGISTRO</a>
+                        </li>
+                        &nbsp;&nbsp;
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="app/deportes.html" th:href="@{/deportes}"><i class="fas fa-basketball-ball"></i> &nbsp;DEPORTES Y ACTIVIDADES</a>
+                        </li>
+                        &nbsp;&nbsp;
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="app/quienesSomos.html" th:href="@{/quienesSomos}"><i class="fas fa-user-friends"></i> &nbsp;¿QUIÉNES SOMOS?</a>
+                        </li>
+                    </ul>
+                    &nbsp;&nbsp;
+                    <h3><a href="app/login.html" th:href="@{/login}"><i class="far fa-user"></i></a></h3>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <h5 style="text-align: center" class="card-title" id="card-title">A continuación, se muestra el listado de horarios y los deportes correspondientes a cada uno de éstos.</h5>
+        <br/>
+        <br/>
+        <div class="row">
+            <div class="col-6 col-lg-6 col-md-6 col-sm-6 deportes1">
+                <div class="row">
+                    <div class="col-6 col-lg-6 col-md-6 col-sm-6">
+                        <h3>9:00 - 11:00</h3>
+                        <h5 th:each="deporte : ${deportes}">
+                            <span th:if="${deporte.getHorario() == '9:00-11:00'}" th:text="${deporte.nombre}">Deporte</span>
+                        </h5>
+                    </div>
+                    <div class="col-6 col-lg-6 col-md-6 col-sm-6">
+                        <h3>12:00 - 14:00</h3>
+                        <h5 th:each="deporte : ${deportes}">
+                            <span th:if="${deporte.getHorario() == '12:00-14:00'}" th:text="${deporte.nombre}">Deporte</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6 col-lg-6 col-md-6 col-sm-6 deportes2">
+                <div class="row">
+                    <div class="col-6 col-lg-6 col-md-6 col-sm-6">
+                        <h3>17:00 - 19:00</h3>
+                        <h5 th:each="deporte : ${deportes}">
+                            <span th:if="${deporte.getHorario() == '17:00-19:00'}" th:text="${deporte.nombre}">Deporte</span>
+                        </h5>
+                    </div>
+                    <div class="col-6 col-lg-6 col-md-6 col-sm-6">
+                        <h3>19:00 - 21:00</h3>
+                        <h5 th:each="deporte : ${deportes}">
+                            <span th:if="${deporte.getHorario() == '19:00-21:00'}" th:text="${deporte.nombre}">Deporte</span>
+                        </h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="w-100 py-4 flex-shrink-0">
+        <div class="container py-4">
+            <div class="row gy-4 gx-5">
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="h1"><i class="fas fa-exclamation-triangle"></i></h5>
+                    <p class="small text-muted mb-0">&copy; Copyrights. All rights reserved. <a class="text-primary" href="#">www.polideportivomartinez.com</a></p>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h5 class="h2 mb-3"><i class="fas fa-users"></i> REDES SOCIALES</h5>
+                    <h2>
+                        <a href="https://twitter.com/"><i class="fab fa-twitter"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="https://instagram.com/"><i class="fab fa-instagram"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="https://facebook.com/"><i class="fab fa-facebook"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="https://tiktok.com/"><i class="fab fa-tiktok"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="https://youtube.com/"><i class="fab fa-youtube"></i></a>
+                    </h2>
+                </div>
+                <div class="col-lg-4 col-md-4">
+                    <h3 class=""><i class="fas fa-info-circle"></i> CONTÁCTANOS</h3>
+                    <br>
+                    <p class="small text-muted"><i class="fa fa-phone"></i>&nbsp; 91 499 55 88</p>
+                    <p class="small text-muted"><i class="fas fa-envelope"></i>&nbsp; polideportivomartinez@gmail.com</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+</body>
+
+<script type="text/javascript" src="../static/js/bootstrap.bundle.min.js" th:src="@{/js/bootstrap.bundle.min.js}"></script>
+</html>

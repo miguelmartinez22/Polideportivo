@@ -1,0 +1,16 @@
+main {
+    border: 1px solid black;
+}
+
+.contenedor {
+    margin: auto;
+}
+
+.contenedor img {
+    margin-left: 40%;
+}
+
+.indoor, .outdoor {
+    border: 1px solid black;
+    margin-left: 5%;
+}

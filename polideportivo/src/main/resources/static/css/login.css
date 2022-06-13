@@ -1,0 +1,17 @@
+.login {
+    background-color: black;
+    margin: auto;
+}
+
+.card {
+    background-color: rgba(216, 211, 211, 1);
+}
+
+.btn {
+    color: black;
+}
+
+footer {
+    background-color: rgba(216, 211, 211, 0.5);
+    margin-top: 3%;
+}
