@@ -10,8 +10,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public interface EntrenadorRepository extends JpaRepository<Entrenador, Long> {
 
-    @Query("select e from Entrenador e where e.especialidad = ?1")
-    public Entrenador findByEspecialidad(String especialidad);
+    @Query("select e from Entrenador e where e.dni = ?1")
+    public Entrenador findByDni(String dni);
 
     @Query("select e from Entrenador e where e.equipo = ?1")
     public Entrenador findByEquipo(String equipo);

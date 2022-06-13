@@ -21,7 +21,7 @@ public class EntrenadorService {
 
     public Entrenador findByEquipo(String equipo){return entrenadorRepository.findByEquipo(equipo);}
 
-    public Entrenador findByDni(String especialidad){return entrenadorRepository.findByEspecialidad(especialidad);}
+    public Entrenador findByDni(String dni){return entrenadorRepository.findByDni(dni);}
 
     public Entrenador findById(long id){return entrenadorRepository.findById(id);}
 }

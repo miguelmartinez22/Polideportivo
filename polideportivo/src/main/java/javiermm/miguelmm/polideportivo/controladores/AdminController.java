@@ -163,9 +163,11 @@ public class AdminController {
             Deporte deporte = deporteService.findById(id);
             Entrenador e = null;
             if (deporte.getEntrenador() != null){
-                e = deporte.getEntrenador();
+                e = entrenadorService.findByDni(deporte.getEntrenador().getDni());
             }
-            Pista p = deporte.getPista();
+
+            Pista p = pistaService.findById(deporte.getPista().getId());
+
             List<Material> materials = materialService.findByDeporte(deporte);
             for (int i = 0; i < materials.size(); i++) {
                 Material m = materials.get(i);
@@ -179,12 +181,14 @@ public class AdminController {
             }
 
             deporte.setEntrenador(null);
-
+            deporte.setPista(null);
             deporteService.delete(deporte);
+
             if (e != null){
+                e.setId(entrenadorService.findAll().size()+1);
                 entrenadorService.save(e);
             }
-            p.setId(pistaService.findAll().size());
+            p.setId(pistaService.findAll().size()+1);
             pistaService.insertar(p);
 
             model = returnAdmin(model);
@@ -224,6 +228,7 @@ public class AdminController {
     public String eliminarEmpleadoSubmit(@RequestParam(value = "empleadDni") String dni, Model model) {
         try {
             Empleado empleado = empleadoService.findByDni(dni);
+
             if (entrenadorService.findByDni(dni) != null){
                 Entrenador entrenador = entrenadorService.findByDni(dni);
                 Deporte deporte = deporteService.findByEntrenador(entrenador);
